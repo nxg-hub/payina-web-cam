@@ -1,0 +1,238 @@
+<!--<!doctype html>-->
+<!--<html class="no-js" lang="">-->
+
+<!--<head>-->
+<!--  <meta charset="utf-8">-->
+<!--  <title>Camera Capture</title>-->
+<!--  <meta name="description" content="">-->
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1">-->
+
+<!--  <meta property="og:title" content="">-->
+<!--  <meta property="og:type" content="">-->
+<!--  <meta property="og:url" content="">-->
+<!--  <meta property="og:image" content="">-->
+
+<!--  <link rel="manifest" href="site.webmanifest">-->
+<!--  <link rel="apple-touch-icon" href="icon.png">-->
+<!--  &lt;!&ndash; Place favicon.ico in the root directory &ndash;&gt;-->
+
+<!--  <link rel="stylesheet" href="css/normalize.css">-->
+<!--  <link rel="stylesheet" href="css/main.css">-->
+
+<!--  <meta name="theme-color" content="#fafafa">-->
+
+<!--  <style>-->
+<!--    #video-container {-->
+<!--      position: relative;-->
+<!--      width: 100%;-->
+<!--      max-width: 600px;-->
+<!--      margin: 0 auto; /* Center the container horizontally */-->
+<!--      text-align: center; /* Center the video feed horizontally */-->
+<!--    }-->
+<!--    #video-feed {-->
+<!--      max-width: 100%; /* Ensure the video fits within the container */-->
+<!--      max-height: 100vh; /* Adjust height as needed */-->
+<!--    }-->
+<!--    #capture-btn {-->
+<!--      position: absolute;-->
+<!--      bottom: 20px;-->
+<!--      left: 50%;-->
+<!--      transform: translateX(-50%);-->
+<!--      padding: 10px 20px;-->
+<!--      font-size: 18px;-->
+<!--      background-color: #007bff;-->
+<!--      color: #fff;-->
+<!--      border: none;-->
+<!--      cursor: pointer;-->
+<!--    }-->
+<!--  </style>-->
+<!--</head>-->
+
+<!--<body>-->
+
+<!--  &lt;!&ndash; Add your site or application content here &ndash;&gt;-->
+<!--  <p>Payina Facial Capture</p>-->
+<!--  <script src="js/vendor/modernizr-3.11.2.min.js"></script>-->
+<!--  <script src="js/plugins.js"></script>-->
+<!--  <script src="js/main.js"></script>-->
+
+<!--  &lt;!&ndash; Google Analytics: change UA-XXXXX-Y to be your site's ID. &ndash;&gt;-->
+<!--  <script>-->
+<!--    window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;-->
+<!--    ga('create', 'UA-XXXXX-Y', 'auto'); ga('set', 'anonymizeIp', true); ga('set', 'transport', 'beacon'); ga('send', 'pageview')-->
+<!--  </script>-->
+<!--  <script src="https://www.google-analytics.com/analytics.js" async></script>-->
+
+<!--  <div id="video-container">-->
+<!--    <video id="video-feed" autoplay playsinline></video>-->
+<!--    <button id="capture-btn">Capture</button>-->
+<!--  </div>-->
+
+<!--  <script>-->
+<!--    // Get video feed element-->
+<!--    const videoFeed = document.getElementById('video-feed');-->
+<!--    const captureBtn = document.getElementById('capture-btn');-->
+
+<!--    // Get user media from the device camera-->
+<!--    navigator.mediaDevices.getUserMedia({ video: true })-->
+<!--      .then(stream => {-->
+<!--        videoFeed.srcObject = stream;-->
+<!--      })-->
+<!--      .catch(err => {-->
+<!--        console.error('Error accessing camera:', err);-->
+<!--      });-->
+
+<!--    // Function to capture image from video feed-->
+<!--    function captureImage() {-->
+<!--      const canvas = document.createElement('canvas');-->
+<!--      const context = canvas.getContext('2d');-->
+<!--      canvas.width = videoFeed.videoWidth;-->
+<!--      canvas.height = videoFeed.videoHeight;-->
+<!--      context.drawImage(videoFeed, 0, 0, canvas.width, canvas.height);-->
+<!--      const imageData = canvas.toDataURL('image/jpeg');-->
+
+<!--      // POST the captured image to your Flask endpoint-->
+<!--      fetch('https://payina-facial-capture-app-8d50a4632288.herokuapp.com/capture', {-->
+<!--        mode: 'no-cors', // Set the request's mode to 'no-cors'-->
+<!--        method: 'POST',-->
+<!--        body: imageData // Send the image data directly as the body of the request-->
+<!--      })-->
+<!--        .then(response => response.text()) // Assuming the server returns text-->
+<!--        .then(data => {-->
+<!--          console.log('Image captured and uploaded successfully:', data);-->
+<!--          alert('Image captured and uploaded successfully!');-->
+<!--        })-->
+<!--        .catch(error => {-->
+<!--          console.error('Error capturing or uploading image:', error);-->
+<!--          alert('Error capturing or uploading image!');-->
+<!--        });-->
+<!--    }-->
+
+<!--    // Add click event listener to the capture button-->
+<!--    captureBtn.addEventListener('click', captureImage);-->
+<!--  </script>-->
+<!--</body>-->
+
+<!--</html>-->
+
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <title>Camera Capture</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" href="icon.png">
+  <!-- Place favicon.ico in the root directory -->
+
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/main.css">
+
+  <meta name="theme-color" content="#fafafa">
+
+  <style>
+    #video-container {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto; /* Center the container horizontally */
+      text-align: center; /* Center the video feed horizontally */
+    }
+    #video-feed {
+      max-width: 100%; /* Ensure the video fits within the container */
+      max-height: 100vh; /* Adjust height as needed */
+    }
+    #capture-btn {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- Add your site or application content here -->
+<p>Payina Facial Capture</p>
+<script src="js/vendor/modernizr-3.11.2.min.js"></script>
+<script src="js/plugins.js"></script>
+<script src="js/main.js"></script>
+
+<!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+<script>
+  window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
+  ga('create', 'UA-XXXXX-Y', 'auto'); ga('set', 'anonymizeIp', true); ga('set', 'transport', 'beacon'); ga('send', 'pageview')
+</script>
+<script src="https://www.google-analytics.com/analytics.js" async></script>
+
+<div id="video-container">
+  <video id="video-feed" autoplay playsinline></video>
+  <button id="capture-btn">Capture</button>
+</div>
+
+<script>
+  // Get video feed element
+  const videoFeed = document.getElementById('video-feed');
+  const captureBtn = document.getElementById('capture-btn');
+
+  // Get user media from the device camera
+  navigator.mediaDevices.getUserMedia({ video: true })
+    .then(stream => {
+      videoFeed.srcObject = stream;
+    })
+    .catch(err => {
+      console.error('Error accessing camera:', err);
+    });
+
+  // Function to capture image from video feed
+  function captureImage() {
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    canvas.width = videoFeed.videoWidth;
+    canvas.height = videoFeed.videoHeight;
+    context.drawImage(videoFeed, 0, 0, canvas.width, canvas.height);
+    const imageData = canvas.toDataURL('image/jpeg');
+
+    // Upload the image to Cloudinary
+    fetch('https://api.cloudinary.com/v1_1/dildznazt/image/upload', {
+      method: 'POST',
+      body: JSON.stringify({
+        file: imageData,
+        upload_preset: 'tin4r1lt' // Specify your Cloudinary upload preset
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Image uploaded successfully:', data);
+        alert('Image uploaded successfully!');
+      })
+      .catch(error => {
+        console.error('Error uploading image:', error);
+        alert('Error uploading image!');
+      });
+  }
+
+  // Add click event listener to the capture button
+  captureBtn.addEventListener('click', captureImage);
+</script>
+</body>
+
+</html>
